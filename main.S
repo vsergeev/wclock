@@ -1,7 +1,7 @@
 ; Word Clock
 ; Idea from Doug's Word Clock - http://www.dougswordclock.com/
 ; ATTiny2313 + DS1305 RTC + 4x STP08DP05 LED Driver
-; Vanya A. Sergeev - vsergeev@gmail.com
+; Vanya A. Sergeev - vsergeev at gmail dot com
 ;
 
 #define __AVR_ATtiny2313A__
