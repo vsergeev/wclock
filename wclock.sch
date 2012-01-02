@@ -15923,13 +15923,22 @@ Source: www.kingbright.com</description>
 <text x="215.9" y="55.88" size="2.1844" layer="95">DS1305 RTC in SPI mode</text>
 <text x="111.76" y="17.78" size="1.778" layer="104">Reset Time SW</text>
 <text x="269.24" y="38.1" size="2.54" layer="95">31 LED Strings</text>
-<text x="236.22" y="27.94" size="2.54" layer="95">...</text>
-<text x="236.22" y="15.24" size="2.54" layer="95">...</text>
-<text x="236.22" y="2.54" size="2.54" layer="95">...</text>
+<text x="200.66" y="27.94" size="2.54" layer="95">...</text>
+<text x="200.66" y="20.32" size="2.54" layer="95">...</text>
+<text x="200.66" y="12.7" size="2.54" layer="95">...</text>
 <text x="320.04" y="27.94" size="2.1844" layer="95">Example String of 4</text>
 <text x="320.04" y="15.24" size="2.1844" layer="95">Example String of 3</text>
 <text x="320.04" y="2.54" size="2.1844" layer="95">Example String of 2</text>
 <text x="238.76" y="-7.62" size="2.1844" layer="95">Resistors for absorbing power dissipation, not current limiting.</text>
+<text x="200.66" y="-10.16" size="2.54" layer="95">...</text>
+<text x="200.66" y="-17.78" size="2.54" layer="95">...</text>
+<text x="200.66" y="-25.4" size="2.54" layer="95">...</text>
+<text x="200.66" y="-48.26" size="2.54" layer="95">...</text>
+<text x="200.66" y="-55.88" size="2.54" layer="95">...</text>
+<text x="200.66" y="-63.5" size="2.54" layer="95">...</text>
+<text x="200.66" y="-86.36" size="2.54" layer="95">...</text>
+<text x="200.66" y="-93.98" size="2.54" layer="95">...</text>
+<text x="200.66" y="-101.6" size="2.54" layer="95">...</text>
 </plain>
 <instances>
 <instance part="U$1" gate="G$1" x="76.2" y="30.48"/>

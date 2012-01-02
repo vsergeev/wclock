@@ -607,4 +607,3 @@ led_time_table:
 	.word 0x00C0, 0x0933	; 12:50:00  Offset: 568
 	.word 0x00C0, 0x4133	; 12:55:00  Offset: 572
 
-
