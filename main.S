@@ -1,6 +1,7 @@
 ; Word Clock
 ; Idea from Doug's Word Clock - http://www.dougswordclock.com/
-; ATTiny2313 + DS1305 RTC + 4x STP08DP05 LED Driver
+;
+; Hardware: ATTiny2313 + DS1305 RTC + 4x STP08DP05 LED Driver
 ; Vanya A. Sergeev - vsergeev at gmail dot com
 ;
 
@@ -33,7 +34,7 @@
 #define IO_USISR	0x00E
 #define IO_USIDR	0x00F
 
-; Vector table
+;;; Vector table
 .org 0x0000
 vectors:
 	rjmp reset
@@ -56,6 +57,7 @@ vectors:
 	rjmp reset
 	rjmp reset
 
+;;; Interrupt 0 Handler, driven by DS1305 RTC every minute.
 int0_isr:
 	; Acknowledge the interrupt by reading an alarm 0 register
 	ldi r16, 0x0A
@@ -137,6 +139,7 @@ int0_isr:
 
 	reti
 
+;;; Interrupt 1 Handler, driven by time reset push button.
 int1_isr:
 	;;; Re-initialize the DS1305 RTC, resetting the time to 12am
 	rcall ds1305_init
@@ -147,6 +150,7 @@ int1_isr:
 	; Update the display and reti
 	rjmp int0_isr
 
+;;; Reset Handler
 reset:
 	; Set up stack pointer
 	ldi r16, lo8(RAMEND)
@@ -323,7 +327,7 @@ spi_transfer:
 		nop
 		nop
 		nop
-		; Check if 16-bits have been shifted
+		; Check if 8-bits have been shifted
 		sbis IO_USISR, USIOIF
 		rjmp .clocking_wait
 
@@ -363,6 +367,7 @@ led_update:
 
 ; Helper function for led_update to shift out a byte and strobe CLK
 ; Byte to be shifted passed in r16.
+; r0 and r1 are clobbered.
 led_shift:
 	; Save data in r0
 	mov r0, r16
