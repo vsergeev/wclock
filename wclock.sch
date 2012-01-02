@@ -16620,6 +16620,13 @@ Source: www.kingbright.com</description>
 <wire x1="287.02" y1="2.54" x2="284.48" y2="2.54" width="0.1524" layer="91"/>
 </segment>
 </net>
+<net name="N$26" class="0">
+<segment>
+<pinref part="R11" gate="G$1" pin="2"/>
+<pinref part="R12" gate="G$1" pin="1"/>
+<wire x1="261.62" y1="2.54" x2="259.08" y2="2.54" width="0.1524" layer="91"/>
+</segment>
+</net>
 </nets>
 </sheet>
 </sheets>
