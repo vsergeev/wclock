@@ -57,6 +57,7 @@ vectors:
 	rjmp reset
 	rjmp reset
 
+
 ;;; Interrupt 0 Handler, driven by DS1305 RTC every minute.
 int0_isr:
 	; Acknowledge the interrupt by reading an alarm 0 register
@@ -139,9 +140,10 @@ int0_isr:
 
 	reti
 
+
 ;;; Interrupt 1 Handler, driven by time reset push button.
 int1_isr:
-	;;; Re-initialize the DS1305 RTC, resetting the time to 12am
+	; Re-initialize the DS1305 RTC, resetting the time to 12am
 	rcall ds1305_init
 
 	; Delay for debouncing
@@ -150,25 +152,26 @@ int1_isr:
 	; Update the display and reti
 	rjmp int0_isr
 
+
 ;;; Reset Handler
 reset:
 	; Set up stack pointer
 	ldi r16, lo8(RAMEND)
 	out 0x3D, r16
 
-	;;; Initialize GPIO DDR for LED Drivers
+	; Initialize GPIO DDR for LED Drivers
 	sbi LED_DDR, LED_CLK
 	sbi LED_DDR, LED_SDI
 	sbi LED_DDR, LED_LE
 
-	;;; Initialize GPIO DDR for DS1305 RTC
+	; Initialize GPIO DDR for DS1305 RTC
 	sbi RTC_DDR, RTC_CE
 	cbi RTC_DDR, RTC_INT
 	cbi RTC_DDR, RTC_SW_INT
 	; Enable internal pull-up for time reset pull-down switch
 	sbi RTC_PORT, RTC_SW_INT
 
-	;;; Set up interrupts
+	; Set up interrupts
 	; Set interrupt 0 as falling-edge, interrupt 1 as falling-edge, set
 	; sleep mode to idle, set sleep enable
 	ldi r16, (1<<SE)|(1<<ISC01)|(1<<ISC11)
@@ -177,15 +180,15 @@ reset:
 	ldi r16, (1<<INT0)|(1<<INT1)
 	sts GIMSK, r16
 
-	;;; Disable analog comparator for power savings
+	; Disable analog comparator for power savings
 	ldi r16, 0x80
 	sts ACSR, r16
 
-	;;; Clear the LED driver port
+	; Clear the LED driver port
 	clr r16
 	out LED_PORT, r16
 
-	;;; Initialize SPI IO for DS1305 RTC
+	; Initialize SPI IO for DS1305 RTC
 	sbi RTC_SPI_DDR, RTC_SPI_CLK
 	sbi RTC_SPI_DDR, RTC_SPI_DO
 	cbi RTC_SPI_DDR, RTC_SPI_DI
@@ -201,23 +204,23 @@ reset:
 	rcall longdelay
 	rcall longdelay
 
-	;;; Initialize LED state to off
+	; Initialize LED state to off
 	clr r16
 	clr r17
 	clr r18
 	clr r19
 	rcall led_update
 
-	;;; Initialize the DS1305 RTC
+	; Initialize the DS1305 RTC
 	rcall ds1305_init
 
-	;;; Setup the initial time LED state
+	; Setup the initial time LED state
 	rcall int0_isr
 
-	;;; Enable interrupts
+	; Enable interrupts
 	sei
 
-	;;; Sleep
+	; Sleep
 sleep_loop:
 	sleep
 	rjmp sleep_loop
@@ -331,7 +334,7 @@ spi_transfer:
 		sbis IO_USISR, USIOIF
 		rjmp .clocking_wait
 
-	; Read the data shifted in
+	; Copy the data shifted in to r16
 	in r16, IO_USIDR
 	ret
 
@@ -378,7 +381,7 @@ led_shift:
 	.led_bit_loop:
 		; Shift next bit into carry
 		lsl r0
-		; Set up SDI accordingly
+		; Branch set up SDI accordingly
 		brcc .led_bit_set0
 
 		; Set SDI high
